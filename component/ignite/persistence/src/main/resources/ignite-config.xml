@@ -21,7 +21,7 @@
   <bean id="slf4jLogger" class="org.apache.ignite.logger.slf4j.Slf4jLogger"/>
 
   <!--Ignite 配置-->
-  <bean class="org.apache.ignite.configuration.IgniteConfiguration" >
+  <bean class="org.apache.ignite.configuration.IgniteConfiguration">
     <!-- Default failureDetectionTimeout -->
     <!--<property name="failureDetectionTimeout" value="10000"/>-->
     <!--<property name="clientFailureDetectionTimeout" value="30000"/>-->

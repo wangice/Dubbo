@@ -67,7 +67,7 @@ public class MsgCfg {
       return arr.size() < 1 ? null : arr;
     } catch (Exception e) {
       if (logger.isErrorEnabled()) {
-        logger.error("exception: {}",Misc.trace(e));
+        logger.error("exception: {}", Misc.trace(e));
       }
       return null;
     }

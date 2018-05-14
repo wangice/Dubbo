@@ -26,41 +26,43 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * Every {@link IgniteRepository} is bound to a specific Apache Ignite that it communicates to in order to mutate and
- * read data via Spring Data API. To pass an instance of Apache Ignite cache to an {@link IgniteRepository} it's
- * required to initialize {@link IgniteRepositoryFactoryBean} with on of the following:
+ * Every {@link IgniteRepository} is bound to a specific Apache Ignite that it communicates to in
+ * order to mutate and read data via Spring Data API. To pass an instance of Apache Ignite cache to
+ * an {@link IgniteRepository} it's required to initialize {@link IgniteRepositoryFactoryBean} with
+ * on of the following:
  * <ul>
  * <li>{@link Ignite} instance bean named "igniteInstance"</li>
  * <li>{@link IgniteConfiguration} bean named "igniteCfg"</li>
  * <li>A path to Ignite's Spring XML configuration named "igniteSpringCfgPath"</li>
- * <ul/>
- * In this example the first approach is utilized.
+ * <ul/> In this example the first approach is utilized.
  */
 @Configuration
 @EnableIgniteRepositories
 public class SpringAppCfg {
-    /**
-     * Creating Apache Ignite instance bean. A bean will be passed to {@link IgniteRepositoryFactoryBean} to initialize
-     * all Ignite based Spring Data repositories and connect to a cluster.
-     */
-    @Bean
-    public Ignite igniteInstance() {
-        IgniteConfiguration cfg = new IgniteConfiguration();
 
-        // Setting some custom name for the node.
-        cfg.setIgniteInstanceName("springDataNode");
+  /**
+   * Creating Apache Ignite instance bean. A bean will be passed to {@link
+   * IgniteRepositoryFactoryBean} to initialize all Ignite based Spring Data repositories and
+   * connect to a cluster.
+   */
+  @Bean
+  public Ignite igniteInstance() {
+    IgniteConfiguration cfg = new IgniteConfiguration();
 
-        // Enabling peer-class loading feature.
-        cfg.setPeerClassLoadingEnabled(true);
+    // Setting some custom name for the node.
+    cfg.setIgniteInstanceName("springDataNode");
 
-        // Defining and creating a new cache to be used by Ignite Spring Data repository.
-        CacheConfiguration ccfg = new CacheConfiguration("PersonCache");
+    // Enabling peer-class loading feature.
+    cfg.setPeerClassLoadingEnabled(true);
 
-        // Setting SQL schema for the cache.
-        ccfg.setIndexedTypes(Long.class, Person.class);
+    // Defining and creating a new cache to be used by Ignite Spring Data repository.
+    CacheConfiguration ccfg = new CacheConfiguration("PersonCache");
 
-        cfg.setCacheConfiguration(ccfg);
+    // Setting SQL schema for the cache.
+    ccfg.setIndexedTypes(Long.class, Person.class);
 
-        return Ignition.start(cfg);
-    }
+    cfg.setCacheConfiguration(ccfg);
+
+    return Ignition.start(cfg);
+  }
 }

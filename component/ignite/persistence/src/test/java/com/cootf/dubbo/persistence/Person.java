@@ -27,119 +27,137 @@ import org.apache.ignite.cache.query.annotations.QueryTextField;
  * Person class.
  */
 public class Person implements Serializable {
-    /** */
-    private static final AtomicLong ID_GEN = new AtomicLong();
 
-    /** Person ID (indexed). */
-    @QuerySqlField(index = true)
-    public Long id;
+  /** */
+  private static final AtomicLong ID_GEN = new AtomicLong();
 
-    /** Organization ID (indexed). */
-    @QuerySqlField(index = true)
-    public Long orgId;
+  /**
+   * Person ID (indexed).
+   */
+  @QuerySqlField(index = true)
+  public Long id;
 
-    /** First name (not-indexed). */
-    @QuerySqlField
-    public String firstName;
+  /**
+   * Organization ID (indexed).
+   */
+  @QuerySqlField(index = true)
+  public Long orgId;
 
-    /** Last name (not indexed). */
-    @QuerySqlField
-    public String lastName;
+  /**
+   * First name (not-indexed).
+   */
+  @QuerySqlField
+  public String firstName;
 
-    /** Resume text (create LUCENE-based TEXT index for this field). */
-    @QueryTextField
-    public String resume;
+  /**
+   * Last name (not indexed).
+   */
+  @QuerySqlField
+  public String lastName;
 
-    /** Salary (indexed). */
-    @QuerySqlField(index = true)
-    public double salary;
+  /**
+   * Resume text (create LUCENE-based TEXT index for this field).
+   */
+  @QueryTextField
+  public String resume;
 
-    /** Custom cache key to guarantee that person is always collocated with its organization. */
-    private transient AffinityKey<Long> key;
+  /**
+   * Salary (indexed).
+   */
+  @QuerySqlField(index = true)
+  public double salary;
 
-    /**
-     * Default constructor.
-     */
-    public Person() {
-        // No-op.
+  /**
+   * Custom cache key to guarantee that person is always collocated with its organization.
+   */
+  private transient AffinityKey<Long> key;
+
+  /**
+   * Default constructor.
+   */
+  public Person() {
+    // No-op.
+  }
+
+  /**
+   * Constructs person record.
+   *
+   * @param org Organization.
+   * @param firstName First name.
+   * @param lastName Last name.
+   * @param salary Salary.
+   * @param resume Resume text.
+   */
+  public Person(Organization org, String firstName, String lastName, double salary, String resume) {
+    // Generate unique ID for this person.
+    id = ID_GEN.incrementAndGet();
+
+    orgId = org.id();
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.salary = salary;
+    this.resume = resume;
+  }
+
+  /**
+   * Constructs person record.
+   *
+   * @param id Person ID.
+   * @param orgId Organization ID.
+   * @param firstName First name.
+   * @param lastName Last name.
+   * @param salary Salary.
+   * @param resume Resume text.
+   */
+  public Person(Long id, Long orgId, String firstName, String lastName, double salary,
+      String resume) {
+    this.id = id;
+    this.orgId = orgId;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.salary = salary;
+    this.resume = resume;
+  }
+
+  /**
+   * Constructs person record.
+   *
+   * @param id Person ID.
+   * @param firstName First name.
+   * @param lastName Last name.
+   */
+  public Person(Long id, String firstName, String lastName) {
+    this.id = id;
+
+    this.firstName = firstName;
+    this.lastName = lastName;
+  }
+
+  /**
+   * Gets cache affinity key. Since in some examples person needs to be collocated with
+   * organization, we create custom affinity key to guarantee this collocation.
+   *
+   * @return Custom affinity key to guarantee that person is always collocated with organization.
+   */
+  public AffinityKey<Long> key() {
+    if (key == null) {
+      key = new AffinityKey<>(id, orgId);
     }
 
-    /**
-     * Constructs person record.
-     *
-     * @param org       Organization.
-     * @param firstName First name.
-     * @param lastName  Last name.
-     * @param salary    Salary.
-     * @param resume    Resume text.
-     */
-    public Person(Organization org, String firstName, String lastName, double salary, String resume) {
-        // Generate unique ID for this person.
-        id = ID_GEN.incrementAndGet();
+    return key;
+  }
 
-        orgId = org.id();
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.salary = salary;
-        this.resume = resume;
-    }
-
-    /**
-     * Constructs person record.
-     *
-     * @param id Person ID.
-     * @param orgId Organization ID.
-     * @param firstName First name.
-     * @param lastName Last name.
-     * @param salary    Salary.
-     * @param resume    Resume text.
-     */
-    public Person(Long id, Long orgId, String firstName, String lastName, double salary, String resume) {
-        this.id = id;
-        this.orgId = orgId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.salary = salary;
-        this.resume = resume;
-    }
-
-    /**
-     * Constructs person record.
-     *
-     * @param id Person ID.
-     * @param firstName First name.
-     * @param lastName Last name.
-     */
-    public Person(Long id, String firstName, String lastName) {
-        this.id = id;
-
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    /**
-     * Gets cache affinity key. Since in some examples person needs to be collocated with organization, we create
-     * custom affinity key to guarantee this collocation.
-     *
-     * @return Custom affinity key to guarantee that person is always collocated with organization.
-     */
-    public AffinityKey<Long> key() {
-        if (key == null)
-            key = new AffinityKey<>(id, orgId);
-
-        return key;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override public String toString() {
-        return "Person [id=" + id +
-                ", orgId=" + orgId +
-                ", lastName=" + lastName +
-                ", firstName=" + firstName +
-                ", salary=" + salary +
-                ", resume=" + resume + ']';
-    }
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String toString() {
+    return "Person [id=" + id +
+        ", orgId=" + orgId +
+        ", lastName=" + lastName +
+        ", firstName=" + firstName +
+        ", salary=" + salary +
+        ", resume=" + resume + ']';
+  }
 }

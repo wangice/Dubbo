@@ -25,108 +25,122 @@ import org.apache.ignite.cache.query.annotations.QuerySqlField;
  * This class represents organization object.
  */
 public class Organization {
-    /** */
-    private static final AtomicLong ID_GEN = new AtomicLong();
 
-    /** Organization ID (indexed). */
-    @QuerySqlField(index = true)
-    private Long id;
+  /** */
+  private static final AtomicLong ID_GEN = new AtomicLong();
 
-    /** Organization name (indexed). */
-    @QuerySqlField(index = true)
-    private String name;
+  /**
+   * Organization ID (indexed).
+   */
+  @QuerySqlField(index = true)
+  private Long id;
 
-    /** Address. */
-    private Address addr;
+  /**
+   * Organization name (indexed).
+   */
+  @QuerySqlField(index = true)
+  private String name;
 
-    /** Type. */
-    private OrganizationType type;
+  /**
+   * Address.
+   */
+  private Address addr;
 
-    /** Last update time. */
-    private Timestamp lastUpdated;
+  /**
+   * Type.
+   */
+  private OrganizationType type;
 
-    /**
-     * Required for binary deserialization.
-     */
-    public Organization() {
-        // No-op.
-    }
+  /**
+   * Last update time.
+   */
+  private Timestamp lastUpdated;
 
-    /**
-     * @param name Organization name.
-     */
-    public Organization(String name) {
-        id = ID_GEN.incrementAndGet();
+  /**
+   * Required for binary deserialization.
+   */
+  public Organization() {
+    // No-op.
+  }
 
-        this.name = name;
-    }
+  /**
+   * @param name Organization name.
+   */
+  public Organization(String name) {
+    id = ID_GEN.incrementAndGet();
 
-    /**
-     * @param id Organization ID.
-     * @param name Organization name.
-     */
-    public Organization(long id, String name) {
-        this.id = id;
-        this.name = name;
-    }
+    this.name = name;
+  }
 
-    /**
-     * @param name Name.
-     * @param addr Address.
-     * @param type Type.
-     * @param lastUpdated Last update time.
-     */
-    public Organization(String name, Address addr, OrganizationType type, Timestamp lastUpdated) {
-        id = ID_GEN.incrementAndGet();
+  /**
+   * @param id Organization ID.
+   * @param name Organization name.
+   */
+  public Organization(long id, String name) {
+    this.id = id;
+    this.name = name;
+  }
 
-        this.name = name;
-        this.addr = addr;
-        this.type = type;
+  /**
+   * @param name Name.
+   * @param addr Address.
+   * @param type Type.
+   * @param lastUpdated Last update time.
+   */
+  public Organization(String name, Address addr, OrganizationType type, Timestamp lastUpdated) {
+    id = ID_GEN.incrementAndGet();
 
-        this.lastUpdated = lastUpdated;
-    }
+    this.name = name;
+    this.addr = addr;
+    this.type = type;
 
-    /**
-     * @return Organization ID.
-     */
-    public Long id() {
-        return id;
-    }
+    this.lastUpdated = lastUpdated;
+  }
 
-    /**
-     * @return Name.
-     */
-    public String name() {
-        return name;
-    }
+  /**
+   * @return Organization ID.
+   */
+  public Long id() {
+    return id;
+  }
 
-    /**
-     * @return Address.
-     */
-    public Address address() {
-        return addr;
-    }
+  /**
+   * @return Name.
+   */
+  public String name() {
+    return name;
+  }
 
-    /**
-     * @return Type.
-     */
-    public OrganizationType type() {
-        return type;
-    }
+  /**
+   * @return Address.
+   */
+  public Address address() {
+    return addr;
+  }
 
-    /**
-     * @return Last update time.
-     */
-    public Timestamp lastUpdated() {
-        return lastUpdated;
-    }
+  /**
+   * @return Type.
+   */
+  public OrganizationType type() {
+    return type;
+  }
 
-    /** {@inheritDoc} */
-    @Override public String toString() {
-        return "Organization [id=" + id +
-            ", name=" + name +
-            ", address=" + addr +
-            ", type=" + type +
-            ", lastUpdated=" + lastUpdated + ']';
-    }
+  /**
+   * @return Last update time.
+   */
+  public Timestamp lastUpdated() {
+    return lastUpdated;
+  }
+
+  /**
+   * {@inheritDoc}
+   */
+  @Override
+  public String toString() {
+    return "Organization [id=" + id +
+        ", name=" + name +
+        ", address=" + addr +
+        ", type=" + type +
+        ", lastUpdated=" + lastUpdated + ']';
+  }
 }

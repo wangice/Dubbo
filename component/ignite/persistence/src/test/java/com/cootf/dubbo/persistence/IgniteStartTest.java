@@ -7,5 +7,4 @@ package com.cootf.dubbo.persistence;
 public class IgniteStartTest {
 
 
-
 }

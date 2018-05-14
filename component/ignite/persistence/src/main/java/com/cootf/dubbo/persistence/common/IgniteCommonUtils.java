@@ -3,8 +3,7 @@ package com.cootf.dubbo.persistence.common;
 import org.apache.ignite.cache.affinity.AffinityKey;
 
 /**
- * 功能：Ignite公共逻辑方法.
- * Created by mjg on 2017/12/7.
+ * 功能：Ignite公共逻辑方法. Created by mjg on 2017/12/7.
  */
 public class IgniteCommonUtils {
 

@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
                             http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <!--RC环境 Store相关SpringBean类,配置文件-->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <array>
-                <!--如果不配置此application.properties SpringBoot导入XML后会找不到配置文件-->
-                <value>classpath*:application.properties</value>
-                <value>classpath*:application-rc.properties</value>
-                <value>classpath*:*-rc.properties</value>
-                <value>classpath*:*_rc.properties</value>
+  <!--RC环境 Store相关SpringBean类,配置文件-->
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <array>
+        <!--如果不配置此application.properties SpringBoot导入XML后会找不到配置文件-->
+        <value>classpath*:application.properties</value>
+        <value>classpath*:application-rc.properties</value>
+        <value>classpath*:*-rc.properties</value>
+        <value>classpath*:*_rc.properties</value>
 
-                <!--单纯基于XML启动所需配置文件-->
-                <value>classpath:mongo.rc.properties</value>
-                <value>classpath:ignite-cache-config.properties</value>
-            </array>
-        </property>
-    </bean>
+        <!--单纯基于XML启动所需配置文件-->
+        <value>classpath:mongo.rc.properties</value>
+        <value>classpath:ignite-cache-config.properties</value>
+      </array>
+    </property>
+  </bean>
 
 
-    <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-        <property name="ipFinder">
-            <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.zk.TcpDiscoveryZookeeperIpFinder">
-                <property name="zkConnectionString"
-                  value="192.168.200.102:2182,192.168.200.120:2182,192.168.200.122:2182"/>
-            </bean>
-        </property>
-    </bean>
+  <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+    <property name="ipFinder">
+      <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.zk.TcpDiscoveryZookeeperIpFinder">
+        <property name="zkConnectionString"
+          value="192.168.200.102:2182,192.168.200.120:2182,192.168.200.122:2182"/>
+      </bean>
+    </property>
+  </bean>
 
-    <import resource="classpath*:ignite-config.xml"/>
+  <import resource="classpath*:ignite-config.xml"/>
 </beans>

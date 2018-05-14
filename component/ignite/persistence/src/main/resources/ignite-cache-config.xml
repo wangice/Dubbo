@@ -41,9 +41,9 @@
     </property>
     <!-- Enabling our sample cache store for the Maintenance cache -->
     <!--<property name="cacheStoreFactory">-->
-      <!--<bean class="com.cootf.dubbo.persistence.store.CacheStoreFactory">-->
-        <!--<property name="storeName" value="cacheDbSimPoolStore"/>-->
-      <!--</bean>-->
+    <!--<bean class="com.cootf.dubbo.persistence.store.CacheStoreFactory">-->
+    <!--<property name="storeName" value="cacheDbSimPoolStore"/>-->
+    <!--</bean>-->
     <!--</property>-->
 
     <property name="storeKeepBinary" value="false"/>

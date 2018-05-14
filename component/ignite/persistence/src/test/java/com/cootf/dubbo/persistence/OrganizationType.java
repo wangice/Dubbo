@@ -21,12 +21,18 @@ package com.cootf.dubbo.persistence;
  * Organization type enum.
  */
 public enum OrganizationType {
-    /** Non-profit organization. */
-    NON_PROFIT,
+  /**
+   * Non-profit organization.
+   */
+  NON_PROFIT,
 
-    /** Private organization. */
-    PRIVATE,
+  /**
+   * Private organization.
+   */
+  PRIVATE,
 
-    /** Government organization. */
-    GOVERNMENT
+  /**
+   * Government organization.
+   */
+  GOVERNMENT
 }

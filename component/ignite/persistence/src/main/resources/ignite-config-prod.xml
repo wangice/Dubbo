@@ -3,30 +3,30 @@
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://www.springframework.org/schema/beans
                             http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <!--Prod 环境 Store相关SpringBean类,配置文件-->
-    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="locations">
-            <array>
-                <!--如果不配置此application.properties SpringBoot导入XML后会找不到配置文件-->
-                <value>classpath*:application.properties</value>
-                <value>classpath*:application-prod.properties</value>
-                <value>classpath*:*-prod.properties</value>
-                <value>classpath*:*_prod.properties</value>
+  <!--Prod 环境 Store相关SpringBean类,配置文件-->
+  <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+    <property name="locations">
+      <array>
+        <!--如果不配置此application.properties SpringBoot导入XML后会找不到配置文件-->
+        <value>classpath*:application.properties</value>
+        <value>classpath*:application-prod.properties</value>
+        <value>classpath*:*-prod.properties</value>
+        <value>classpath*:*_prod.properties</value>
 
-                <!--单纯基于XML启动所需配置文件-->
-                <value>classpath:mongo.prod.properties</value>
-                <value>classpath:ignite-cache-config.properties</value>
-            </array>
-        </property>
-    </bean>
-    <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
-        <property name="ipFinder">
-            <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.zk.TcpDiscoveryZookeeperIpFinder">
-                <property name="zkConnectionString"
-                          value="172.31.23.137:2182,172.31.31.197:2182,172.31.20.106:2182"/>
-            </bean>
-        </property>
-    </bean>
+        <!--单纯基于XML启动所需配置文件-->
+        <value>classpath:mongo.prod.properties</value>
+        <value>classpath:ignite-cache-config.properties</value>
+      </array>
+    </property>
+  </bean>
+  <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+    <property name="ipFinder">
+      <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.zk.TcpDiscoveryZookeeperIpFinder">
+        <property name="zkConnectionString"
+          value="172.31.23.137:2182,172.31.31.197:2182,172.31.20.106:2182"/>
+      </bean>
+    </property>
+  </bean>
 
-    <import resource="classpath*:ignite-config.xml"/>
+  <import resource="classpath*:ignite-config.xml"/>
 </beans>

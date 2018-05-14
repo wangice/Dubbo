@@ -28,8 +28,8 @@
 
       <DefaultRolloverStrategy>
         <Delete basePath="${LOG_HOME}" maxDepth="2">
-          <IfFileName glob="*/resim-bos-app-provider-info-*.log" />
-          <IfLastModified age="7d" />
+          <IfFileName glob="*/resim-bos-app-provider-info-*.log"/>
+          <IfLastModified age="7d"/>
         </Delete>
       </DefaultRolloverStrategy>
     </RollingFile>
@@ -48,8 +48,8 @@
 
       <DefaultRolloverStrategy>
         <Delete basePath="${LOG_HOME}" maxDepth="2">
-          <IfFileName glob="*/resim-bos-app-provider-warn-*.log" />
-          <IfLastModified age="7d" />
+          <IfFileName glob="*/resim-bos-app-provider-warn-*.log"/>
+          <IfLastModified age="7d"/>
         </Delete>
       </DefaultRolloverStrategy>
     </RollingFile>
@@ -66,8 +66,8 @@
 
       <DefaultRolloverStrategy>
         <Delete basePath="${LOG_HOME}" maxDepth="2">
-          <IfFileName glob="*/resim-bos-app-provider-error-*.log" />
-          <IfLastModified age="7d" />
+          <IfFileName glob="*/resim-bos-app-provider-error-*.log"/>
+          <IfLastModified age="7d"/>
         </Delete>
       </DefaultRolloverStrategy>
     </RollingFile>
@@ -86,8 +86,8 @@
 
       <DefaultRolloverStrategy>
         <Delete basePath="${LOG_HOME}" maxDepth="2">
-          <IfFileName glob="*/resim-bos-app-provider-debug-*.log" />
-          <IfLastModified age="7d" />
+          <IfFileName glob="*/resim-bos-app-provider-debug-*.log"/>
+          <IfLastModified age="7d"/>
         </Delete>
       </DefaultRolloverStrategy>
     </RollingFile>
