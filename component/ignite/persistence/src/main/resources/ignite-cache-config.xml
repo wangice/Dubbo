@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/util
+                            http://www.springframework.org/schema/util/spring-util.xsd">
+
+  <!-- Cache for Maintenance records -->
+  <bean class="org.apache.ignite.configuration.CacheConfiguration" id="person">
+    <property name="name" value="${ignite.cache.Person}"/>
+    <property name="cacheMode" value="REPLICATED"/>
+    <property name="queryEntities">
+      <list>
+        <bean class="org.apache.ignite.cache.QueryEntity">
+          <property name="keyType" value="java.lang.Long"/>
+          <property name="valueType" value="com.cootf.dubbo.persistence.entities.Person"/>
+          <property name="fields">
+            <util:map map-class="java.util.LinkedHashMap">
+              <entry key="id" value="java.lang.Long"/>
+              <entry key="name" value="java.lang.String"/>
+              <entry key="city_id" value="java.lang.Long"/>
+            </util:map>
+          </property>
+          <property name="indexes">
+            <list>
+              <bean class="org.apache.ignite.cache.QueryIndex">
+                <constructor-arg name="field" index="0" value="id"/>
+              </bean>
+            </list>
+          </property>
+        </bean>
+      </list>
+    </property>
+    <property name="indexedTypes">
+      <list>
+        <value>java.lang.Long</value>
+        <value>com.cootf.dubbo.persistence.entities.Person</value>
+      </list>
+    </property>
+    <!-- Enabling our sample cache store for the Maintenance cache -->
+    <!--<property name="cacheStoreFactory">-->
+      <!--<bean class="com.cootf.dubbo.persistence.store.CacheStoreFactory">-->
+        <!--<property name="storeName" value="cacheDbSimPoolStore"/>-->
+      <!--</bean>-->
+    <!--</property>-->
+
+    <property name="storeKeepBinary" value="false"/>
+    <!--是否启用后写，true-启用，累加更新操作然后作为一个批量操作异步化地刷入持久化存储中-->
+    <!--<property name="writeBehindEnabled" value="${ignite.cache.through}"/>-->
+    <!--后写缓存的最大值，默认为10240. 如果超过了这个限值，所有的缓存数据都会被刷入缓存存储然后写缓存被清空。如果值为0，刷新操作将会依据刷新频率间隔，注意不能将写缓存大小和刷新频率都设置为0。-->
+    <!--<property name="writeBehindFlushSize" value="5"/>-->
+    <!--后写缓存的刷新频率，单位为毫秒，默认为 5000. 该值定义了从对缓存对象进行插入/删除和当相应的操作被施加到缓存存储的时刻之间的最大时间间隔。如果值为0，刷新会依据写缓存大小，注意不能将写缓存大小和刷新频率都设置为0。-->
+    <!--<property name="writeBehindFlushFrequency" value="60000"/>-->
+    <!-- 执行缓存刷新的线程数,默认为 1.-->
+    <!--<property name="writeBehindFlushThreadCount" value="2"/>-->
+
+    <!-- Enabling the write-through feature for the store. -->
+    <!--<property name="writeThrough" value="${ignite.cache.through}"/>-->
+
+    <!-- Enabling the read-through feature for the store. -->
+    <!--<property name="readThrough" value="${ignite.cache.through}"/>-->
+  </bean>
+
+</beans>

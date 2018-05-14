@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <properties>
+        <!-- 日志路径 -->
+        <property name="LOG_HOME">${sys:app.log.home}</property>
+    </properties>
+
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT" ignoreExceptions="false">
+            <PatternLayout
+                    pattern="%d{HH:mm:ss.SSS} [%t] %M %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile name="RollingFileInfo" fileName="${LOG_HOME}/resim-bos-app-web-info.log"
+                     filePattern="${LOG_HOME}/${date:yyyy-MM}/resim-bos-app-web-info-%d{MM-dd-yyyy}-%i.log"
+                     ignoreExceptions="false">
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_HOME}" maxDepth="2">
+                    <IfFileName glob="*/resim-bos-app-web-info-*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="RollingFileWarn" fileName="${LOG_HOME}/resim-bos-app-web-warn.log"
+                     filePattern="${LOG_HOME}/${date:yyyy-MM}/resim-bos-app-web-warn-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_HOME}" maxDepth="2">
+                    <IfFileName glob="*/resim-bos-app-web-warn-*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="RollingFileDebug" fileName="${LOG_HOME}/resim-bos-app-web-debug.log"
+          filePattern="${LOG_HOME}/${date:yyyy-MM}/resim-bos-app-web-debug-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_HOME}" maxDepth="2">
+                    <IfFileName glob="*/resim-bos-app-web-debug-*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="RollingFileError" fileName="${LOG_HOME}/resim-bos-app-web-error.log"
+                     filePattern="${LOG_HOME}/${date:yyyy-MM}/resim-bos-app-web-error-%d{yyyy-MM-dd}-%i.log">
+            <ThresholdFilter level="ERROR"/>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${LOG_HOME}" maxDepth="2">
+                    <IfFileName glob="*/resim-bos-app-web-error-*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+
+        <!--WEB操作日志Appender-->
+        <RocketMQ name="webOperateLogAppender" producerGroup="bosAppWebLogGroup" nameServerAddress="172.30.16.64:9876"
+          topic="${sys:TOPIC_LoggerTopic}" tag="${sys:TAG_WebOperateLog}">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+        </RocketMQ>
+
+        <ResimRocketMQLoggerAppender name="RocketMQResimLoggerAppender"
+          nameServerAddress="172.30.16.64:9876"
+          topic="ResimLog" tag="resim-bos-app-web" producerGroup="LogProducerGroup">
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+        </ResimRocketMQLoggerAppender>
+
+    </appenders>
+
+    <Loggers>
+        <Logger name="com.cootf.resim.bos.app.web.aspect.ControllerInterceptor" level="DEBUG">
+            <AppenderRef ref="webOperateLogAppender"/>
+        </Logger>
+
+        <Logger name="com.cootf.resim.bos.app.web" level="DEBUG">
+            <AppenderRef ref="RocketMQResimLoggerAppender"/>
+            <AppenderRef ref="RollingFileDebug"/>
+        </Logger>
+
+        <logger name="org.springframework" level="INFO"/>
+        <logger name="org.apache.zookeeper" level="INFO"/>
+        <logger name="org.apache.curator" level="INFO"/>
+        <logger name="io.netty" level="INFO"/>
+        <logger name="com.alibaba.dubbo" level="WARN"/>
+        <logger name="com.alibaba.boot" level="WARN"/>
+        <logger name="RocketmqRemoting" level="WARN"/>
+        <logger name="RocketmqClient" level="WARN"/>
+        <root level="all">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+            <appender-ref ref="RollingFileDebug"/>
+        </root>
+    </Loggers>
+</Configuration>

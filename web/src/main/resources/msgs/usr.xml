@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<action>
+  <msgs class="com.cootf.dubbo.web.controller.UserController">
+    <msg method="login" login="false"/>
+  </msgs>
+</action>

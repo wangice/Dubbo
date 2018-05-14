@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="warn">
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT" ignoreExceptions="false">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %M %-5level %logger{36} - %msg%n"/>
+        </Console>
+        <RollingFile name="RollingFileDebug" fileName="${sys:IGNITE_HOME}/work/log/ignite-debug.log"
+          filePattern="${sys:IGNITE_HOME}/work/log/${date:yyyy-MM}/ignite-debug-%d{MM-dd-yyyy}-%i.log"
+          ignoreExceptions="false">
+            <Filters>
+                <ThresholdFilter level="INFO" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="DEBUG" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${sys:IGNITE_HOME}/work/log" maxDepth="2">
+                    <IfFileName glob="*/ignite-debug-*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="RollingFileInfo" fileName="${sys:IGNITE_HOME}/work/log/ignite-info.log"
+                     filePattern="${sys:IGNITE_HOME}/work/log/${date:yyyy-MM}/ignite-info-%d{MM-dd-yyyy}-%i.log"
+                     ignoreExceptions="false">
+            <Filters>
+                <ThresholdFilter level="WARN" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="INFO" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+            </Policies>
+            <DefaultRolloverStrategy>
+                <Delete basePath="${sys:IGNITE_HOME}/work/log" maxDepth="2">
+                    <IfFileName glob="*/ignite-info-*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="RollingFileWarn" fileName="${sys:IGNITE_HOME}/work/log/ignite-warn.log"
+                     filePattern="${sys:IGNITE_HOME}/work/log/${date:yyyy-MM}/ignite-warn-%d{MM-dd-yyyy}-%i.log"
+                     ignoreExceptions="false">
+            <Filters>
+                <ThresholdFilter level="ERROR" onMatch="DENY" onMismatch="NEUTRAL"/>
+                <ThresholdFilter level="WARN" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${sys:IGNITE_HOME}/work/log" maxDepth="2">
+                    <IfFileName glob="*/ignite-warn-*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+        <RollingFile name="RollingFileError" fileName="${sys:IGNITE_HOME}/work/log/ignite-error.log"
+                     filePattern="${sys:IGNITE_HOME}/work/log/${date:yyyy-MM}/ignite-error-%d{MM-dd-yyyy}-%i.log"
+                     ignoreExceptions="false">
+            <ThresholdFilter level="ERROR" onMatch="ACCEPT" onMismatch="DENY"/>
+            <PatternLayout pattern="[%d{HH:mm:ss:SSS}] [%t] [%p] - %l - %m%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy/>
+                <SizeBasedTriggeringPolicy size="10 MB"/>
+                <CronTriggeringPolicy schedule="0 0 0 * * ?"/>
+            </Policies>
+
+            <DefaultRolloverStrategy>
+                <Delete basePath="${sys:IGNITE_HOME}/work/log" maxDepth="2">
+                    <IfFileName glob="*/ignite-error-*.log" />
+                    <IfLastModified age="7d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingFile>
+    </appenders>
+
+    <Loggers>
+        <Logger name="org.springframework" level="WARN"/>
+        <Logger name="org.mongodb" level="WARN"/>
+        <Logger name="org.apache.zookeeper" level="WARN"/>
+        <Logger name="org.apache.curator" level="WARN"/>
+        <Logger name="org.eclipse.jetty" level="WARN"/>
+        <Logger name="org.eclipse.jetty.util.log" level="ERROR"/>
+        <Logger name="org.eclipse.jetty.util.component" level="ERROR"/>
+        <logger name="org.apache.ignite" level="INFO"/>
+
+        <root level="all">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFileInfo"/>
+            <appender-ref ref="RollingFileWarn"/>
+            <appender-ref ref="RollingFileError"/>
+            <appender-ref ref="RollingFileDebug"/>
+        </root>
+    </Loggers>
+</Configuration>  

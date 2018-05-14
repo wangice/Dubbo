@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/util
+                            http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+  <!--Store相关SpringBean类,注解管理Bean-->
+  <context:component-scan base-package="com.cootf.dubbo.persistence"/>
+  <import resource="ignite-cache-config.xml"></import>
+
+  <!--<bean id="log4J2Logger" class="org.apache.ignite.logger.log4j2.Log4J2Logger">-->
+  <!--&lt;!&ndash;默认IGNITE_HOME目录下,或者META-INF目录下&ndash;&gt;-->
+  <!--<constructor-arg type="java.lang.String" value="ignite-log4j2-prod.xml"/>-->
+  <!--</bean>-->
+  <bean id="slf4jLogger" class="org.apache.ignite.logger.slf4j.Slf4jLogger"/>
+
+  <!--Ignite 配置-->
+  <bean class="org.apache.ignite.configuration.IgniteConfiguration" >
+    <!-- Default failureDetectionTimeout -->
+    <!--<property name="failureDetectionTimeout" value="10000"/>-->
+    <!--<property name="clientFailureDetectionTimeout" value="30000"/>-->
+
+    <!--Ignite日志配置-->
+    <property name="gridLogger" ref="slf4jLogger"/>
+    <!--节点发现机制 Bean -->
+    <property name="discoverySpi" ref="discoverySpi"/>
+
+    <!-- Enabling the peer-class loading feature. -->
+    <property name="peerClassLoadingEnabled" value="true"/>
+    <property name="metricsLogFrequency" value="0"/>
+    <!-- Configuring caches that will be deployed on Data Nodes -->
+    <property name="cacheConfiguration">
+      <list>
+        <ref bean="person"/>
+      </list>
+    </property>
+  </bean>
+</beans>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--QA环境 Store相关SpringBean类,配置文件-->
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <array>
+                <!--如果不配置此application.properties SpringBoot导入XML后会找不到配置文件-->
+                <value>classpath*:application.properties</value>
+                <value>classpath*:application-qa.properties</value>
+                <value>classpath*:*-qa.properties</value>
+                <value>classpath*:*_qa.properties</value>
+
+                <!--单纯基于XML启动所需配置文件-->
+                <value>classpath:mongo.qa.properties</value>
+                <value>classpath:ignite-cache-config.properties</value>
+            </array>
+        </property>
+    </bean>
+
+    <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
+        <property name="ipFinder">
+            <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.zk.TcpDiscoveryZookeeperIpFinder">
+                <property name="zkConnectionString"
+                  value="172.30.16.61:2181,172.30.16.60:2182,172.30.16.59:2183"/>
+            </bean>
+        </property>
+    </bean>
+
+    <import resource="classpath*:ignite-config.xml"/>
+</beans>

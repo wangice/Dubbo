@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/util
+                            http://www.springframework.org/schema/util/spring-util.xsd
+    http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--Store相关SpringBean类,注解管理Bean-->
+    <context:component-scan base-package="com.cootf.resim.component.ignite"/>
+    <import resource="ignite-cache-config.xml"></import>
+
+    <bean class="org.apache.ignite.configuration.IgniteConfiguration">
+        <!-- Enabling the peer-class loading feature. -->
+        <property name="peerClassLoadingEnabled" value="true"/>
+        <property name="metricsLogFrequency" value="0"/>
+
+        <!-- Configuring caches that will be deployed on Data Nodes -->
+        <property name="cacheConfiguration">
+            <list>
+                <ref bean="simcardCache" />
+                <ref bean="simpoolCache" />
+                <ref bean="countryCache" />
+                <ref bean="operatorCache"/>
+                <ref bean="operatorConfigCache" />
+                <ref bean="onlineSimpoolCache" />
+                <ref bean="chargingRuleCache" />
+                <ref bean="plansCache" />
+                <ref bean="plansResourceCache" />
+                <ref bean="simcardAccountCache" />
+                <ref bean="simcardExchangeCache" />
+                <ref bean="simcardResourceCache" />
+            </list>
+        </property>
+
+    </bean>
+</beans>
