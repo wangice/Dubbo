@@ -33,3 +33,5 @@ target/
 # system ignore
 .DS_Store
 Thumbs.db
+
+/upms/web/src/main/webapp/node_modules
