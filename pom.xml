@@ -18,6 +18,8 @@
 
 
   <properties>
+    <dubbo.project>1.0.0-SNAPSHOT</dubbo.project>
+
     <junit.version>4.12</junit.version>
     <shiro.version>1.4.0-RC2</shiro.version>
     <mysql.version>5.1.40</mysql.version>
@@ -46,6 +48,7 @@
     <ignite.version>2.4.0</ignite.version>
     <h2.version>1.4.196</h2.version>
     <curator.version>2.12.0</curator.version>
+    <mongo.version>3.3.0</mongo.version>
   </properties>
 
   <dependencyManagement>

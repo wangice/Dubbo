@@ -6,17 +6,17 @@ package com.cootf.dubbo.persistence.entities;
  */
 public class Person {
 
-  private Long id;
+  private String id;
 
   private String name;
 
   private Long city_id;
 
-  public Long getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(String id) {
     this.id = id;
   }
 

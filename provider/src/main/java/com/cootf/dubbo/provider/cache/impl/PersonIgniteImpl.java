@@ -44,4 +44,13 @@ public class PersonIgniteImpl extends IgniteCacheStrategyImpl<Person> implements
     sqlQuery.setAlias(id);
     return super.getListByQuery(sqlQuery);
   }
+
+  @Override
+  public String savePerson(Person person) {
+    long sequece = super.getCacheId(Person.class.getSimpleName() + "_seq");
+    String id = sequece + "";
+    person.setId(id);
+    super.put(id, person);
+    return id;
+  }
 }

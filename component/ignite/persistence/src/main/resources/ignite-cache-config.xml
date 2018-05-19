@@ -40,27 +40,25 @@
       </list>
     </property>
     <!-- Enabling our sample cache store for the Maintenance cache -->
-    <!--<property name="cacheStoreFactory">-->
-    <!--<bean class="com.cootf.dubbo.persistence.store.CacheStoreFactory">-->
-    <!--<property name="storeName" value="cacheDbSimPoolStore"/>-->
-    <!--</bean>-->
-    <!--</property>-->
+    <property name="cacheStoreFactory">
+      <bean class="com.cootf.dubbo.persistence.store.CacheStoreFactory">
+        <property name="storeName" value="cacheDbPersonStore"/>
+      </bean>
+    </property>
 
     <property name="storeKeepBinary" value="false"/>
     <!--是否启用后写，true-启用，累加更新操作然后作为一个批量操作异步化地刷入持久化存储中-->
-    <!--<property name="writeBehindEnabled" value="${ignite.cache.through}"/>-->
+    <property name="writeBehindEnabled" value="${ignite.cache.through}"/>
     <!--后写缓存的最大值，默认为10240. 如果超过了这个限值，所有的缓存数据都会被刷入缓存存储然后写缓存被清空。如果值为0，刷新操作将会依据刷新频率间隔，注意不能将写缓存大小和刷新频率都设置为0。-->
-    <!--<property name="writeBehindFlushSize" value="5"/>-->
+    <property name="writeBehindFlushSize" value="5"/>
     <!--后写缓存的刷新频率，单位为毫秒，默认为 5000. 该值定义了从对缓存对象进行插入/删除和当相应的操作被施加到缓存存储的时刻之间的最大时间间隔。如果值为0，刷新会依据写缓存大小，注意不能将写缓存大小和刷新频率都设置为0。-->
-    <!--<property name="writeBehindFlushFrequency" value="60000"/>-->
+    <property name="writeBehindFlushFrequency" value="60000"/>
     <!-- 执行缓存刷新的线程数,默认为 1.-->
-    <!--<property name="writeBehindFlushThreadCount" value="2"/>-->
-
+    <property name="writeBehindFlushThreadCount" value="2"/>
     <!-- Enabling the write-through feature for the store. -->
-    <!--<property name="writeThrough" value="${ignite.cache.through}"/>-->
-
+    <property name="writeThrough" value="${ignite.cache.through}"/>
     <!-- Enabling the read-through feature for the store. -->
-    <!--<property name="readThrough" value="${ignite.cache.through}"/>-->
+    <property name="readThrough" value="${ignite.cache.through}"/>
   </bean>
 
 </beans>

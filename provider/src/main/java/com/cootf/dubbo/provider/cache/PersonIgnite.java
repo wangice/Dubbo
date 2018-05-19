@@ -11,4 +11,6 @@ import java.util.List;
 public interface PersonIgnite extends IgniteCacheStrategy<Person> {
 
   List<Person> findOneByKey(String id);
+
+  String savePerson(Person person);
 }
