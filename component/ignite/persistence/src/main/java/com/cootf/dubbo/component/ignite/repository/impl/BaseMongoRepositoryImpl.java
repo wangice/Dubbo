@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.bson.Document;
 import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
@@ -94,7 +95,7 @@ public abstract class BaseMongoRepositoryImpl<T> implements BaseMongoRepository<
     BasicDBObject field = null;
     if (!StringUtils.isEmpty(startId)) {
       BasicDBObject query = new BasicDBObject();
-      query.put(MONGODB_$_GT, startId);
+      query.put(MONGODB_$_GT, new ObjectId(startId));
       field = new BasicDBObject();
       field.put(ID_FILED, query);
     }
@@ -114,7 +115,7 @@ public abstract class BaseMongoRepositoryImpl<T> implements BaseMongoRepository<
     List<T> data = new ArrayList<>();
     for (Document doc : documents) {
       T item = transDocToEntity(doc);
-      if (item == null) {
+      if (item != null) {
         data.add(item);
       }
     }
