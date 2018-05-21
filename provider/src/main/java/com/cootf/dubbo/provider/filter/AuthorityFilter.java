@@ -21,6 +21,7 @@ public class AuthorityFilter implements Filter {
 
   private static final Logger log = LoggerFactory.getLogger(AuthorityFilter.class);
 
+
   @Override
   public Result invoke(Invoker<?> invoker, Invocation invocation) throws RpcException {
     log.info("remote url: {}", Misc.obj2json(RpcContext.getContext().getUrl()));
