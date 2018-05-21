@@ -1,7 +1,10 @@
 package com.cootf.dubbo.provider.impl;
 
 import com.alibaba.dubbo.config.annotation.Service;
+import com.cootf.dubbo.entities.Person;
+import com.cootf.dubbo.provider.cache.PersonIgnite;
 import com.cootf.dubbo.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author:ice
@@ -10,9 +13,16 @@ import com.cootf.dubbo.service.UserService;
 @Service
 public class UserServiceImpl implements UserService {
 
+  @Autowired
+  private PersonIgnite personIgnite;
+
   @Override
-  public String login(String user) {
-    System.out.println("是");
-    return "收拾";
+  public Person login(String user) {
+    return personIgnite.findPersonByName(user);
+  }
+
+  @Override
+  public boolean save(Person person) {
+    return personIgnite.savePerson(person);
   }
 }

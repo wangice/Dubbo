@@ -85,6 +85,12 @@
       <groupId>com.cootf.dubbo</groupId>
       <artifactId>common</artifactId>
     </dependency>
+
+    <dependency>
+      <groupId>com.cootf.dubbo</groupId>
+      <artifactId>service</artifactId>
+      <version>${dubbo.project}</version>
+    </dependency>
   </dependencies>
 
 </project>

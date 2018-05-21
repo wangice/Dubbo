@@ -2,7 +2,7 @@
 <Configuration status="warn">
   <properties>
     <!-- 日志路径 -->
-    <property name="LOG_HOME">${sys:app.log.home}</property>
+    <property name="LOG_HOME">/opt/logs/web</property>
   </properties>
 
   <appenders>

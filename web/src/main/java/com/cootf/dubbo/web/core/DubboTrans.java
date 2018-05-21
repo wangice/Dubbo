@@ -30,12 +30,23 @@ public class DubboTrans {
     return Misc.trim(this.req.getPars().get(par));
   }
 
+  /**
+   * 获取参数中的值，并转化为Integer
+   */
+  public Integer getParInteger(String par) {
+    return Misc.forceInt0(Misc.trim(this.req.getPars().get(par)));
+  }
+
   public final DeferredResult<String> end(RspErr err) {
     return this.end(err, null);
   }
 
   public final DeferredResult<String> end(RspErr err, Object o) {
     return this.endImmediate(err, o)/* 事务立即结束. */;
+  }
+
+  public final DeferredResult<String> end(Object o) {
+    return this.end(RspErr.ERR_NONE, o);
   }
 
   public final DeferredResult<String> endNoLog(RspErr err) {

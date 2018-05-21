@@ -1,8 +1,8 @@
 package com.cootf.dubbo.provider.cache.impl;
 
-import com.cootf.dubbo.persistence.common.IgniteCacheStrategyImpl;
-import com.cootf.dubbo.persistence.configuration.IgniteProperties;
-import com.cootf.dubbo.persistence.entities.Person;
+import com.cootf.dubbo.component.ignite.common.IgniteCacheStrategyImpl;
+import com.cootf.dubbo.component.ignite.configuration.IgniteProperties;
+import com.cootf.dubbo.entities.Person;
 import com.cootf.dubbo.provider.cache.PersonIgnite;
 import com.cootf.dubbo.provider.configuration.IgniteAutoConfiguration;
 import java.util.List;
@@ -46,11 +46,18 @@ public class PersonIgniteImpl extends IgniteCacheStrategyImpl<Person> implements
   }
 
   @Override
-  public String savePerson(Person person) {
+  public boolean savePerson(Person person) {
     long sequece = super.getCacheId(Person.class.getSimpleName() + "_seq");
     String id = sequece + "";
     person.setId(id);
-    super.put(id, person);
-    return id;
+    return super.put(id, person);
+  }
+
+  @Override
+  public Person findPersonByName(String name) {
+    SqlQuery sqlQuery = new SqlQuery(Person.class, PersonIgniteImpl.NAME + "=? ");
+    sqlQuery.setArgs(name);
+    List<Person> persons = super.getListByQuery(sqlQuery);
+    return persons.isEmpty() ? null : persons.get(0);
   }
 }

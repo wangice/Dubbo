@@ -12,6 +12,7 @@
   <packaging>pom</packaging>
   <modules>
     <module>persistence</module>
+    <module>preloading</module>
   </modules>
 
   <properties>

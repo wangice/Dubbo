@@ -14,6 +14,7 @@
         <value>classpath*:*_dev.properties</value>
 
         <!--单纯基于XML启动所需配置文件-->
+        <value>classpath:mongo.dev.properties</value>
         <value>classpath:ignite-cache-config.properties</value>
       </array>
     </property>
@@ -21,7 +22,7 @@
   <bean id="discoverySpi" class="org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi">
     <property name="ipFinder">
       <bean class="org.apache.ignite.spi.discovery.tcp.ipfinder.zk.TcpDiscoveryZookeeperIpFinder">
-        <property name="zkConnectionString" value="172.30.16.149:2182"/>
+        <property name="zkConnectionString" value="47.98.188.94:2181"/>
       </bean>
     </property>
   </bean>

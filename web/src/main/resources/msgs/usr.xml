@@ -2,5 +2,6 @@
 <action>
   <msgs class="com.cootf.dubbo.web.controller.UserController">
     <msg method="login" login="false"/>
+    <msg method="save" login="false"/>
   </msgs>
 </action>

@@ -1,0 +1,1 @@
+ipFilter=com.cootf.dubbo.provider.filter.AuthorityFilter

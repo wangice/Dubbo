@@ -154,12 +154,17 @@
     <dependency>
       <groupId>com.cootf.dubbo</groupId>
       <artifactId>service</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>${dubbo.project}</version>
     </dependency>
     <dependency>
       <groupId>com.cootf.dubbo</groupId>
       <artifactId>persistence</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
+      <version>${dubbo.project}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.cootf.dubbo</groupId>
+      <artifactId>dubbomisc</artifactId>
+      <version>${dubbo.project}</version>
     </dependency>
   </dependencies>
 

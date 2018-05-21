@@ -47,7 +47,7 @@ public class AppController {
   public DeferredResult<String> service(HttpServletRequest request, HttpServletResponse response)
       throws Exception {
     DeferredResult<String> result = new DeferredResult<>();
-
+    logger.info("request url:{}", request.getQueryString());
     String action = request.getParameter("action");
     //
     CallBackStub callBackStub = msgCfg.getMsgs().get(action);

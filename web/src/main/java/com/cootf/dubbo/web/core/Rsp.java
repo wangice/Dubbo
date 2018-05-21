@@ -14,7 +14,13 @@ public class Rsp {
 
     ERR_SYSTEM_EXCEPTION(0x0003, "服务器异常"),/* 异常. */
 
+    ERR_MISSING_PARAMS(0x0004, "缺少必要的参数"),/* 缺少必要的参数. */
+
     ERR_NOT_FOUND_ACTION(0x0010, "没有找到该方法"),/* 没有找到该方法. */
+
+
+    ERR_NOT_FOUND_USER(0x0100, "沒有找到用户"),
+
     //
     ERR_END(0xFFFF, "结束");
 

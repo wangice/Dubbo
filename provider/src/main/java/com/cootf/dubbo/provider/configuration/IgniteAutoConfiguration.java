@@ -1,6 +1,6 @@
 package com.cootf.dubbo.provider.configuration;
 
-import com.cootf.dubbo.persistence.configuration.IgniteProperties;
+import com.cootf.dubbo.component.ignite.configuration.IgniteProperties;
 import java.util.concurrent.locks.ReentrantLock;
 import javax.annotation.PreDestroy;
 import org.apache.ignite.Ignite;

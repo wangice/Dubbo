@@ -1,6 +1,6 @@
 package com.cootf.dubbo.provider;
 
-import com.cootf.dubbo.persistence.entities.Person;
+import com.cootf.dubbo.entities.Person;
 import com.cootf.dubbo.provider.cache.PersonIgnite;
 import java.util.List;
 import org.junit.Before;
@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -18,6 +19,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @ActiveProfiles("dev")
+@ImportResource("classpath*:ignite-config-dev.xml")
 public class DubboDataApplicationTest {
 
 

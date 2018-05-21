@@ -1,7 +1,7 @@
 package com.cootf.dubbo.provider.cache;
 
-import com.cootf.dubbo.persistence.common.IgniteCacheStrategy;
-import com.cootf.dubbo.persistence.entities.Person;
+import com.cootf.dubbo.component.ignite.common.IgniteCacheStrategy;
+import com.cootf.dubbo.entities.Person;
 import java.util.List;
 
 /**
@@ -12,5 +12,7 @@ public interface PersonIgnite extends IgniteCacheStrategy<Person> {
 
   List<Person> findOneByKey(String id);
 
-  String savePerson(Person person);
+  boolean savePerson(Person person);
+
+  Person findPersonByName(String name);
 }

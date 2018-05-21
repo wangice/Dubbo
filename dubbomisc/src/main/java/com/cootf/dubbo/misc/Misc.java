@@ -183,6 +183,18 @@ public class Misc {
   }
 
   /**
+   * 异常返回Null.
+   */
+  public static final Integer forceInteger(String arg) {
+    try {
+      Integer value = Integer.parseInt(Misc.trim(arg));
+      return value;
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
+  /**
    * 异常时返回0, 否则总是 >= 0.
    */
   public static final float forceFloat0(String arg) {

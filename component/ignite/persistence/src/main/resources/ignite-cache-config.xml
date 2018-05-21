@@ -14,11 +14,11 @@
     <property name="queryEntities">
       <list>
         <bean class="org.apache.ignite.cache.QueryEntity">
-          <property name="keyType" value="java.lang.Long"/>
-          <property name="valueType" value="com.cootf.dubbo.persistence.entities.Person"/>
+          <property name="keyType" value="java.lang.String"/>
+          <property name="valueType" value="com.cootf.dubbo.entities.Person"/>
           <property name="fields">
             <util:map map-class="java.util.LinkedHashMap">
-              <entry key="id" value="java.lang.Long"/>
+              <entry key="id" value="java.lang.String"/>
               <entry key="name" value="java.lang.String"/>
               <entry key="city_id" value="java.lang.Long"/>
             </util:map>
@@ -35,13 +35,13 @@
     </property>
     <property name="indexedTypes">
       <list>
-        <value>java.lang.Long</value>
-        <value>com.cootf.dubbo.persistence.entities.Person</value>
+        <value>java.lang.String</value>
+        <value>com.cootf.dubbo.entities.Person</value>
       </list>
     </property>
     <!-- Enabling our sample cache store for the Maintenance cache -->
     <property name="cacheStoreFactory">
-      <bean class="com.cootf.dubbo.persistence.store.CacheStoreFactory">
+      <bean class="com.cootf.dubbo.component.ignite.store.CacheStoreFactory">
         <property name="storeName" value="cacheDbPersonStore"/>
       </bean>
     </property>
