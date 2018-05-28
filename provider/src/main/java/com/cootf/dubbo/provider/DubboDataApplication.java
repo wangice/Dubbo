@@ -7,11 +7,13 @@ import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfigurat
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author:ice
  * @Date: 2018/5/4 20:03
  */
+@EnableScheduling
 @SpringBootApplication(exclude = {MongoAutoConfiguration.class, MongoDataAutoConfiguration.class,
     DataSourceAutoConfiguration.class})
 @ImportResource("classpath*:ignite-config-${spring.profiles.active}.xml")

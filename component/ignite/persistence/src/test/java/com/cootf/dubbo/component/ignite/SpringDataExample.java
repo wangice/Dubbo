@@ -32,7 +32,6 @@ import org.springframework.data.domain.PageRequest;
  * Additional cluster nodes can be started with special configuration file which enables P2P class
  * loading: {@code 'ignite.{sh|bat} examples/config/example-ignite.xml'}.
  * <p>
- * Alternatively you can run {@link ExampleNodeStartup} in another JVM which will start an
  * additional node with {@code examples/config/example-ignite.xml} configuration.
  */
 public class SpringDataExample {
@@ -113,8 +112,8 @@ public class SpringDataExample {
    */
   private static void findPersons() {
     // Getting Person with specific ID.
-    Person person = repo.findOne(2L);
-
+//    Person person = repo.findOne(2L);
+    Person person = new Person();
     System.out.println("\n>>> Found Person [id=" + 2L + ", val=" + person + "]");
 
     // Getting a list of Persons.

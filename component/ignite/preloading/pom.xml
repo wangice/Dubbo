@@ -10,6 +10,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>preloading</artifactId>
+  <properties>
+    <start-class>com.cootf.dubbo.component.ignite.IgniteDataPreLoadingApplication</start-class>
+  </properties>
 
   <dependencies>
     <dependency>
@@ -62,4 +65,45 @@
       <artifactId>junit</artifactId>
     </dependency>
   </dependencies>
+  <build>
+    <finalName>${project.artifactId}</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring.boot.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>repackage</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>${start-class}</mainClass>
+          <layout>JAR</layout>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>${maven.assembly.plugin.version}</version>
+        <configuration>
+          <descriptors>
+            <descriptor>src/main/script/assembly.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

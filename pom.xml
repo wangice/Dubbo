@@ -19,6 +19,15 @@
 
   <properties>
     <dubbo.project>1.0.0-SNAPSHOT</dubbo.project>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <jdk.version>1.8</jdk.version>
+    <checkstyle.config.location>checkstyle/google-checkstyle.xml</checkstyle.config.location>
+    <argLine>-Dfile.encoding=UTF-8</argLine>
+    <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+    <maven.assembly.plugin.version>3.0.0</maven.assembly.plugin.version>
 
     <junit.version>4.12</junit.version>
     <shiro.version>1.4.0-RC2</shiro.version>
@@ -52,6 +61,14 @@
 
   <dependencyManagement>
     <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring.boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
       <dependency>
         <groupId>com.alibaba.boot</groupId>
         <artifactId>dubbo-spring-boot-starter</artifactId>
